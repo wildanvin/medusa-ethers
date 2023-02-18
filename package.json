@@ -1,0 +1,12 @@
+{
+  "name": "medusa-ethers",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@ethersproject/providers": "^5.7.2",
+    "@medusa-network/medusa-sdk": "^0.0.2",
+    "dotenv": "^16.0.3",
+    "ethers": "^5.7.2"
+  }
+}
