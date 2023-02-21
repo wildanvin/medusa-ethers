@@ -24,7 +24,7 @@ const medusa = await Medusa.init(medusaAddress, signer)
 const medusaPublicKey = await medusa.fetchPublicKey()
 
 //Lets encrypt our data!
-const plaintext = 'This is a cool font !!'
+const plaintext = 'This is some cool data !!'
 const buff = new TextEncoder().encode(plaintext)
 
 //Encrypt data with Medusa
@@ -34,20 +34,19 @@ const { encryptedData, encryptedKey } = await medusa.encrypt(
 )
 console.log(`encryptedData: ${encryptedData}`)
 
-//Encrypt to medusa
-//Now we interact with the app contract
+//Now we interact with the app contract OnliFiles.sol
 //We create a listing and set the "policy"
 //Here we pass the encryptedkey and submit it to medusa
 
-const typeFundMarket = new ethers.Contract(applicationAddress, abi, signer)
+const onlyFiles = new ethers.Contract(applicationAddress, abi, signer)
 
 const price = ethers.utils.parseEther('0.01')
 
-const result = await typeFundMarket.functions
+const result = await onlyFiles.functions
   .createListing(
     encryptedKey,
-    'FontName',
-    'This font is designed to be easy to read',
+    'Data Name',
+    'Description of the data',
     price,
     'https://ipfs.io/ipfs/QmaiyzWd7uknfVUWJ4sZTaM9VSLoPLiFwULWghGAUNDdeu'
   )
@@ -55,7 +54,7 @@ const result = await typeFundMarket.functions
     console.log(transaction)
 
     // Listen to the 'NewListing' event
-    typeFundMarket.on(
+    onlyFiles.on(
       'NewListing',
       (seller, cipherId, name, description, price, uri, event) => {
         console.log(
