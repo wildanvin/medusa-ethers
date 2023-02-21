@@ -1,4 +1,4 @@
-# Steps to use medusa
+# Use Medusa with ethers.js
 
 This repo describes the basic workflow to use medusa from scripts using only ethers.js.
 
@@ -10,7 +10,9 @@ First, install dependencies with `npm install`
 
 The steps are:
 
-1. We encrypt our text by running `node encrypt.mjs`.
+1. We encrypt our text by running `node encrypt.mjs`. We have to copy our encrypted text to the `decrypt1.mjs` file.
 2. We start to decrypt using `node decrypt0.mjs`. In this script we pay to view the file.
 3. Step 2 triggered an event that the front end should listen, that event has the the encrypted key.
 4. We copy the values from the event and update the `ciphertext` object, and finally run `decrypt1.mjs`
+
+### [Explaining video](https://youtu.be/qlOqQPZWayo)
