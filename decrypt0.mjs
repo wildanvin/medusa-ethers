@@ -32,23 +32,24 @@ evmPoint = { x, y }
 
 //To decrypt, you have to pass through the dApp you are building; the smart contract that originally submits a ciphertext is the only account that can request reencryption of that ciphertext.
 
-const typeFundMarket = new ethers.Contract(applicationAddress, abi, signer)
+const onlyFiles = new ethers.Contract(applicationAddress, abi, signer)
 
 const price = ethers.utils.parseEther('0.01')
 
-//Change the cipherID--------------------[under here]
-const result = await typeFundMarket
-  .buyListing(106, evmPoint, {
+//
+const result = await onlyFiles
+  .buyListing(161 /* <------- Change the cipherID here */, evmPoint, {
     value: price,
   })
   .then((transaction) => {
     console.log(transaction)
 
     // Listen to the 'ListingDecryption' event
-    typeFundMarket.on('ListingDecryption', (requestId, cipher, event) => {
+    onlyFiles.on('ListingDecryption', (requestId, cipher, event) => {
       console.log(
         `requestId = ${requestId}
-    cipher = ${cipher} 
+    cipher: 
+    ${JSON.stringify(cipher)} 
     
     blockNumber = ${event.blockNumber}`
       )
